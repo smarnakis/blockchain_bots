@@ -1,0 +1,5 @@
+uint32 robot_id
+string host
+uint32 port
+---
+bool result

@@ -1,0 +1,6 @@
+uint32 robot_id
+string command_type
+uint32 station_num
+int32 value
+---
+string result
