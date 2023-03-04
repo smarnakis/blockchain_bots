@@ -1,0 +1,24 @@
+{
+  "configurations": [
+    {
+      "browse": {
+        "databaseFilename": "${default}",
+        "limitSymbolsToIncludedHeaders": false
+      },
+      "includePath": [
+        "/home/aris/ros2/workspace/install/tutorial_interfaces/include/**",
+        "/home/aris/ros2/workspace/install/blockchain_bots_interfaces/include/**",
+        "/opt/ros/foxy/include/**",
+        "/home/aris/ros2/workspace/src/blockchain_bots/blockchain_bots_app/include/**",
+        "/home/aris/ros2/workspace/src/blockchain_bots/blockchain_bots_interfaces/include/**",
+        "/usr/include/**"
+      ],
+      "name": "ROS",
+      "intelliSenseMode": "gcc-x64",
+      "compilerPath": "/usr/bin/gcc",
+      "cStandard": "gnu11",
+      "cppStandard": "c++14"
+    }
+  ],
+  "version": 4
+}

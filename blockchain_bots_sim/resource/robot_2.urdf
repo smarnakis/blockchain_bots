@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<robot name="Robot 2">
+    <webots>
+        <device reference="ds0" type="DistanceSensor">
+            <ros>
+                <topicName>/robot_2/left_sensor</topicName>
+                <alwaysOn>true</alwaysOn>
+            </ros>
+        </device>
+        <device reference="ds1" type="DistanceSensor">
+            <ros>
+                <topicName>/robot_2/right_sensor</topicName>
+                <alwaysOn>true</alwaysOn>
+            </ros>
+        </device>
+        <device reference="GPS0" type="GPS">
+            <ros>
+                <topicName>/gps_sensor</topicName>
+                <alwaysOn>true</alwaysOn>
+            </ros>
+        </device>
+        <plugin type="blockchain_bots_sim.my_robot_driver.MyRobotDriver2" />
+    </webots>
+</robot>
