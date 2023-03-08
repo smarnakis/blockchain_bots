@@ -6,6 +6,8 @@ EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2022b/project
 EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/master/projects/objects/floors/protos/RectangleArena.proto"
 EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/master/projects/objects/geometries/protos/Rectangle.proto"
 EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/master/projects/objects/factory/containers/protos/WoodenBox.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/robots/robotis/turtlebot/protos/TurtleBot3Burger.proto"
+
 
 WorldInfo {
 }
@@ -22,28 +24,28 @@ CircleArena{
 }
 
 WoodenBox {
-  translation 0.5 0.5 0.005
+  translation 0.6 0.6 0.005
   rotation 0 0 1 0.0
   size 0.01 0.01 0.25
   mass 10.0
 }
 
 WoodenBox {
-  translation 0.5 -0.5 0.005
+  translation 0.6 -0.6 0.005
   rotation 0 0 1 0.0
   size 0.01 0.01 0.25
   mass 10.0
 }
 
 WoodenBox {
-  translation -0.5 -0.5 0.005
+  translation -0.6 -0.6 0.005
   rotation 0 0 1 0.0
   size 0.01 0.01 0.25
   mass 10.0
 }
 
 WoodenBox {
-  translation -0.5 0.5 0.005
+  translation -0.6 0.6 0.005
   rotation 0 0 1 0.0
   size 0.01 0.01 0.25
   mass 10.0
@@ -62,6 +64,9 @@ Robot {
         RotationalMotor {
           name "left wheel motor"
         }
+        PositionSensor {
+          name "ps_left"
+        }
       ]
       endPoint Solid {
         translation 0 0.045 0.025
@@ -97,6 +102,9 @@ Robot {
       device [
         RotationalMotor {
           name "right wheel motor"
+        }
+        PositionSensor {
+          name "ps_right"
         }
       ]
       endPoint Solid {
@@ -175,6 +183,12 @@ Robot {
       translation 0 0.5 0
     }
     GPS {
+    }
+    Solid {
+      name "imu_link"
+    }
+    InertialUnit {
+      name "inertial_unit"
     }
   ]
   boundingObject Transform {
@@ -189,6 +203,7 @@ Robot {
   name "robot_1"
 }
 
+
 Robot {
   translation 0.5 0.0 0.005
   rotation 0 0 1 -1.57
@@ -201,6 +216,9 @@ Robot {
       device [
         RotationalMotor {
           name "left wheel motor"
+        }
+        PositionSensor {
+          name "ps_left"
         }
       ]
       endPoint Solid {
@@ -237,6 +255,9 @@ Robot {
       device [
         RotationalMotor {
           name "right wheel motor"
+        }
+        PositionSensor {
+          name "ps_right"
         }
       ]
       endPoint Solid {
@@ -315,6 +336,12 @@ Robot {
       translation 0 0.5 0
     }
     GPS {
+    }
+    Solid {
+      name "imu_link"
+    }
+    InertialUnit {
+      name "inertial_unit"
     }
   ]
   boundingObject Transform {

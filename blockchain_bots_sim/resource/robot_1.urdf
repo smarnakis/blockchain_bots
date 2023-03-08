@@ -19,6 +19,14 @@
                 <alwaysOn>true</alwaysOn>
             </ros>
         </device>
+        <plugin type="webots_ros2_driver::Ros2IMU">
+            <enabled>true</enabled>
+            <updateRate>60</updateRate>
+            <topicName>/robot_1/imu</topicName>
+            <alwaysOn>true</alwaysOn>
+            <frameName>imu_link</frameName>
+            <inertialUnitName>inertial_unit</inertialUnitName>
+        </plugin>
         <plugin type="blockchain_bots_sim.my_robot_driver.MyRobotDriver" />
     </webots>
 </robot>

@@ -41,11 +41,13 @@ class Sawtooth(Node):
             stationNum = request.station_num
             value = request.value
             if commandType == "set":
-                result = self.clientInstance0.sendSet(stationNum)
+                result = self.clientInstance0.sendSet(stationNum, value)
             elif commandType == "inc":
-                result = self.clientInstance0.sendInc(stationNum)
+                result = self.clientInstance0.sendInc(stationNum, value)
             elif commandType == "show":
                 result = self.clientInstance0.sendShow(stationNum)
+            elif commandType == "list":
+                result = self.clientInstance0.sendList()
             else:
                 result = "FALSE COMMAND"
         else:
@@ -53,14 +55,17 @@ class Sawtooth(Node):
             stationNum = request.station_num
             value = request.value
             if commandType == "set":
-                result = self.clientInstance1.sendSet(stationNum)
+                result = self.clientInstance1.sendSet(stationNum, value)
             elif commandType == "inc":
-                result = self.clientInstance1.sendInc(stationNum)
+                result = self.clientInstance1.sendInc(stationNum, value)
             elif commandType == "show":
                 result = self.clientInstance1.sendShow(stationNum)
+            elif commandType == "list":
+                result = self.clientInstance1.sendList()
             else:
                 result = "FALSE COMMAND"
         self.get_logger().info('Transaction by robot_id: %d for commad:\nCommand Type: %s, station%d, value: %d' % (robot_id, commandType, stationNum, value))
+        self.get_logger().info('RESPONSE: %s' %(result))
         response.result = result
         return response
 
