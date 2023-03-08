@@ -108,7 +108,7 @@ class PathPlanner : public rclcpp::Node {
         auto status = future.wait_for(1s);
         if (status == std::future_status::ready) {
           RCLCPP_INFO(this->get_logger(), 
-                      "Result: success: %i", future.get()->result);
+                      "Result: success: %s", future.get()->result.c_str());
           system_ready_for_next_goal_ = true;
         } 
         else {
@@ -119,7 +119,6 @@ class PathPlanner : public rclcpp::Node {
     std::tuple<std::double_t, std::double_t> velocity_calculation(std::double_t error_x, std::double_t error_y, std::double_t error_theta){
       std::double_t x_vel = 0.0;
       std::double_t angular_vel = 0.0;
-
       if (_current_goal_idx == 0){
         if (std::abs(error_x) > .02){
           x_vel = lineSpeedLow;  
@@ -144,6 +143,13 @@ class PathPlanner : public rclcpp::Node {
             }
           }
           else{
+            if (_robot_id==1){
+            _send_command_to_sawtooth(_current_goal_idx,"list",1);
+            }
+            _send_command_to_sawtooth(_current_goal_idx,"inc",1);
+            // while(!is_robot_ready_for_next_goal()){
+
+            // }
             _update_goal_idx();
           }
         }
@@ -171,6 +177,10 @@ class PathPlanner : public rclcpp::Node {
             }
           }
           else{
+            _send_command_to_sawtooth(_current_goal_idx,"inc",1);
+            // while(!is_robot_ready_for_next_goal()){
+              
+            // }
             _update_goal_idx();
           }
         }
@@ -198,6 +208,10 @@ class PathPlanner : public rclcpp::Node {
             }
           }
           else{
+            _send_command_to_sawtooth(_current_goal_idx,"inc",1);
+            // while(!is_robot_ready_for_next_goal()){
+              
+            // }
             _update_goal_idx();
           }
         }
@@ -225,6 +239,11 @@ class PathPlanner : public rclcpp::Node {
             }
           }
           else{
+            // _send_command_to_sawtooth(_current_goal_idx,"show",1);
+            _send_command_to_sawtooth(_current_goal_idx,"inc",1);
+            // while(!is_robot_ready_for_next_goal()){
+              
+            // }
             _update_goal_idx();
           }
         }
@@ -284,7 +303,7 @@ class PathPlanner : public rclcpp::Node {
   void __odom2D_callback(const geometry_msgs::msg::Pose2D::SharedPtr odom2D_msg)
     {
       auto command_message = geometry_msgs::msg::Twist();
-      if (connection_to_sawtooth_done_){
+      if (is_connection_service_done()){
       auto state_x = odom2D_msg->x;
       auto state_y = odom2D_msg->y;
       auto state_theta = odom2D_msg->theta;
@@ -326,6 +345,9 @@ class PathPlanner : public rclcpp::Node {
       return this->connection_to_sawtooth_done_;
     }
 
+    bool is_robot_ready_for_next_goal() const{
+      return this->system_ready_for_next_goal_;
+    }
 
 
 };
