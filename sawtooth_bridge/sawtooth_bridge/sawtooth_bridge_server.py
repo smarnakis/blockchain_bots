@@ -6,14 +6,50 @@ from rclpy.node import Node
 
 
 class Sawtooth(Node):
+    """A class to implement the bridge between ROS2 and Sawtooth.
+
+    ...
+
+    Description
+    -----------
+    A child class of the Node class. This node acts as the server for the 2 services 
+    (namely connect_to_sawtooth and send_command_to_sawtooth) that implement the bridge 
+    between the other ros2 nodes and the Sawtooth blockchain.
+
+    Attributes
+    ----------
+    srv1 : rclpy.service.Service
+        Service for connection with the python server in the sawtooth client docker container.
+    srv2 : rclpy.service.Service
+        Service to send commands to the connected sawtooth client docker container.
+
+
+    Methods
+    -------
+    connect_to_sawtooth_callback(request, response):
+        The callback that implements srv1
+    send_command_to_sawtooth_callback (request, response):
+        The callback that implements srv2
+    """
 
     def __init__(self):
         super().__init__('minimal_service')
         self.srv1 = self.create_service(ConnectToSawtoothSim, 'connect_to_sawtooth', self.connect_to_sawtooth_callback)
         self.srv2 = self.create_service(SendCommandToSawtoothSim, 'send_command_to_sawtooth', self.send_command_to_sawtooth_callback)
         
-    
     def connect_to_sawtooth_callback (self, request, response):
+        """The callback that implements srv1
+
+        ...
+
+        Description
+        -----------
+        Given the host IP and the port it connects to the respective docker container 
+        using the custom made sawtoothClient class. Now one node handles the services 
+        from all the robots, the robot_id is used to create each instance.(TODO: Create
+        one server node for each robot.)
+        """
+
         host = request.host
         port = request.port
         robot_id = request.robot_id
@@ -35,8 +71,19 @@ class Sawtooth(Node):
         return response
     
     def send_command_to_sawtooth_callback (self, request, response):
+        """The callback that implements srv2.
+
+        ...
+
+        Description
+        -----------
+        Based on the robot_id which calls srv2, a set, inc, show or list command is sent to the
+        respective sawtooth-client docker container which in term requests the respective transaction
+        from the IntKey TP. 
+        """
         robot_id = request.robot_id
-        if robot_id == 0:
+
+        if robot_id == 0: # Case for commands sent by 1st robot
             commandType = request.command_type
             stationNum = request.station_num
             value = request.value
@@ -50,7 +97,7 @@ class Sawtooth(Node):
                 result = self.clientInstance0.sendList()
             else:
                 result = "FALSE COMMAND"
-        else:
+        else: # Case for commands sent by 2nd robot
             commandType = request.command_type
             stationNum = request.station_num
             value = request.value
