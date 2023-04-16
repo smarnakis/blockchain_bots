@@ -15,6 +15,7 @@ if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic)
 endif()
 
+
 # find dependencies
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
@@ -22,9 +23,21 @@ find_package(std_msgs REQUIRED)
 find_package(geometry_msgs REQUIRED)
 find_package(blockchain_bots_interfaces REQUIRED)
 
-add_executable(blockchain_bots_control_node src/blockchain_bots_control_node.cpp)
-add_executable(blockchain_bots_control_test src/blockchain_bots_control_test_node.cpp)
+include_directories(include)
+# set(library_name ${PROJECT_NAME})
+add_library(blockchain_bots_node src/blockchain_bots_control_node.cpp)
+ament_target_dependencies(blockchain_bots_node geometry_msgs rclcpp std_msgs blockchain_bots_interfaces)
+
+
+
+add_executable(blockchain_bots_control_node src/blockchain_bots_control_main.cpp)
 ament_target_dependencies(blockchain_bots_control_node geometry_msgs rclcpp std_msgs blockchain_bots_interfaces)
+target_link_libraries(blockchain_bots_control_node 
+                    blockchain_bots_node
+                     )
+
+
+add_executable(blockchain_bots_control_test src/blockchain_bots_control_test_node.cpp)
 ament_target_dependencies(blockchain_bots_control_test geometry_msgs rclcpp std_msgs blockchain_bots_interfaces)
 
 target_include_directories(blockchain_bots_control_node PUBLIC
@@ -39,6 +52,7 @@ install(TARGETS
   blockchain_bots_control_node
   blockchain_bots_control_test
   DESTINATION lib/${PROJECT_NAME})
+install(DIRECTORY include DESTINATION include)
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
@@ -50,5 +64,7 @@ if(BUILD_TESTING)
   #set(ament_cmake_cpplint_FOUND TRUE)
   ament_lint_auto_find_test_dependencies()
 endif()
+
+ament_export_include_directories(include)
 
 ament_package()

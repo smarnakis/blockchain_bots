@@ -1,9 +1,7 @@
-from blockchain_bots_interfaces.srv import ConnectToSawtoothSim, SendCommandToSawtoothSim
-from .sawtoothClient import sawtoothClient
-
 import rclpy
 from rclpy.node import Node
-
+from blockchain_bots_interfaces.srv import ConnectToSawtoothSim, SendCommandToSawtoothSim
+from .sawtoothClient import sawtoothClient
 
 class Sawtooth(Node):
     """A class to implement the bridge between ROS2 and Sawtooth.
