@@ -27,7 +27,7 @@ def generate_launch_description():
     )
 
 
-    my_robot_driver = Node(
+    my_robot_driver1 = Node(
         package='webots_ros2_driver',
         executable='driver',
         output='screen',
@@ -50,7 +50,7 @@ def generate_launch_description():
     path_planner = Node(
         output ='screen',
         package='blockchain_bots_control',
-        executable='blockchain_bots_control_test',
+        executable='blockchain_bots_control_node',
     )
     # obstacle_avoider1 = Node(
     #     output ='screen',
@@ -66,7 +66,7 @@ def generate_launch_description():
     return LaunchDescription([
         webots,
         ros2_supervisor,
-        my_robot_driver,
+        my_robot_driver1,
         my_robot_driver2,
         path_planner,
         # obstacle_avoider1,
