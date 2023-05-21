@@ -1,0 +1,7 @@
+# Ignore VScode file
+.vscode
+
+# Ignore useless sawtooth-sdk-python files  
+sawtooth-sdk-python/custom_client/__pycache__/
+sawtooth-sdk-python/custom_client/exceptions.py
+sawtooth-sdk-python/custom_client/hello_world.py

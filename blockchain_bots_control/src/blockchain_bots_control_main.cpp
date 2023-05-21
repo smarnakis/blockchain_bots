@@ -15,11 +15,7 @@ int main(int argc, char * argv[])
   while (true) {
     rclcpp::spin_some(path_planner1);
     rclcpp::spin_some(path_planner2);
-  }
-  // auto service_client2 = std::make_shared<TestServiceClient>("test_service_client1", 1, "127.0.0.1", 9001);
-  // while (!service_client2->is_service_done()) {
-  //   rclcpp::spin_some(service_client2);
-  // }  
+  } 
 
   rclcpp::shutdown();
   return 0;

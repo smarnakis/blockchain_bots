@@ -23,20 +23,25 @@ find_package(std_msgs REQUIRED)
 find_package(geometry_msgs REQUIRED)
 find_package(blockchain_bots_interfaces REQUIRED)
 
+
+# Include header files
 include_directories(include)
-# set(library_name ${PROJECT_NAME})
+
+# Create object file for the blockchain_bots_node using its definition source
 add_library(blockchain_bots_node src/blockchain_bots_control_node.cpp)
+# Link the object with the dependencies
 ament_target_dependencies(blockchain_bots_node geometry_msgs rclcpp std_msgs blockchain_bots_interfaces)
 
 
-
+## ADD EXCECUTABLES
+# Main excecutable file (added, linked with dependencies and the node library)
 add_executable(blockchain_bots_control_node src/blockchain_bots_control_main.cpp)
 ament_target_dependencies(blockchain_bots_control_node geometry_msgs rclcpp std_msgs blockchain_bots_interfaces)
 target_link_libraries(blockchain_bots_control_node 
                     blockchain_bots_node
                      )
 
-
+# Testing excecutable
 add_executable(blockchain_bots_control_test src/blockchain_bots_control_test_node.cpp)
 ament_target_dependencies(blockchain_bots_control_test geometry_msgs rclcpp std_msgs blockchain_bots_interfaces)
 

@@ -1,21 +1,3 @@
-// #include <chrono>
-// #include <functional>
-// #include <memory>
-// #include <string>
-// #include <cstdlib>
-// #include <future>
-
-// // #include "rclcpp/timer.hpp"
-// // #include "rclcpp/logger.hpp"
-// // #include "rclcpp/rclcpp.hpp"
-// #include "std_msgs/msg/string.hpp"
-// #include "geometry_msgs/msg/twist.hpp"
-// #include "geometry_msgs/msg/point_stamped.hpp"
-// #include "geometry_msgs/msg/pose2_d.hpp"
-
-// #include "blockchain_bots_interfaces/srv/connect_to_sawtooth_sim.hpp"
-// #include "blockchain_bots_interfaces/srv/send_command_to_sawtooth_sim.hpp"
-
 #include "blockchain_bots_control/blockchain_bots_control_node.hpp"
 
 using namespace std::chrono_literals;
